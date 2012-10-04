@@ -15,6 +15,6 @@ profiles.
 
     $ go get github.com/ftrvxmtrx/gravatar
 
-## Documentation
+## Documentation and examples
 
 [gravatar on go.pkgdoc.org](http://go.pkgdoc.org/github.com/ftrvxmtrx/gravatar)
