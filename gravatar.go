@@ -87,7 +87,7 @@ const (
   // DefaultError defaults to an error.
   DefaultError = "404"
 
-  // DefaultIdenticon defaults to a generated geometric pattern.
+  // DefaultIdentIcon defaults to a generated geometric pattern.
   DefaultIdentIcon = "identicon"
 
   // DefaultMonster defaults to a generated 'monster' with different colors
@@ -143,8 +143,8 @@ func GetAvatar(scheme, emailHash string, opts ...interface{}) (data []byte, err 
   return
 }
 
-// Get does a HTTP(S) request (based on `scheme` argument) and returns gravatar
-// profile.
+// GetProfile does a HTTP(S) request (based on `scheme` argument) and returns
+// gravatar profile.
 func GetProfile(scheme, emailHash string) (g GravatarProfile, err error) {
   url := &url.URL{
     Scheme: scheme,
