@@ -34,6 +34,12 @@ func TestGetAvatar(t *testing.T) {
   }
 }
 
+func TestGetAvatarURL(t *testing.T) {
+  if url := GetAvatarURL("http", "d96ba36eb0d406aea53f3868cd06fca8"); url == nil {
+    t.Error(url)
+  }
+}
+
 func TestGetProfile(t *testing.T) {
   for _, scheme := range []string{"http", "https"} {
     if e, err := GetProfile(scheme, "d96ba36eb0d406aea53f3868cd06fca8"); err != nil {

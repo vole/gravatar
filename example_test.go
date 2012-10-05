@@ -29,6 +29,14 @@ func ExampleGetAvatar() {
   }
 }
 
+func ExampleGetAvatarURL() {
+  // get URL to avatar image of size 256x256
+  // fall back to "monster" generated avatar
+  emailHash := gr.EmailHash("ftrvxmtrx@gmail.com")
+  url := GetAvatarURL("https", emailHash, gr.DefaultMonster, 256)
+  fmt.Println(url.String())
+}
+
 func ExampleGetProfile() {
   // get profile using HTTPS transport
   emailHash := gr.EmailHash("ftrvxmtrx@gmail.com")

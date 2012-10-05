@@ -120,6 +120,15 @@ func EmailHash(email string) string {
 //
 // Optional arguments include Default* (default actions) and image size.
 func GetAvatar(scheme, emailHash string, opts ...interface{}) (data []byte, err error) {
+  url := GetAvatarURL(scheme, emailHash, opts...)
+  err = run(url, get_avatar(&data))
+  return
+}
+
+// GetAvatarURL returns an URL to avatar image.
+//
+// Optional arguments include Default* (default actions) and image size.
+func GetAvatarURL(scheme, emailHash string, opts ...interface{}) *url.URL {
   url := &url.URL{
     Scheme: scheme,
     Host:   gravatarHost,
@@ -139,8 +148,7 @@ func GetAvatar(scheme, emailHash string, opts ...interface{}) (data []byte, err 
 
   url.RawQuery = values.Encode()
 
-  err = run(url, get_avatar(&data))
-  return
+  return url
 }
 
 // GetProfile does a HTTP(S) request (based on `scheme` argument) and returns
