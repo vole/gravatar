@@ -13,9 +13,13 @@ func ExampleGetAvatar() {
   emailHash := gr.EmailHash("ftrvxmtrx@gmail.com")
   raw, err := gr.GetAvatar("http", emailHash, 128)
 
+  // get avatar image (32x32) using HTTP transport
+  // allow images of any rating level
+  raw, err = gr.GetAvatar("http", emailHash, gr.RatingX, 32)
+
   // get avatar image (default size, png format) with fallback to "retro"
   // generated avatar.
-  // use https transport
+  // use HTTPS transport
   emailHash = "cfcd208495d565ef66e7dff9f98764da.png"
   raw, err = gr.GetAvatar("https", emailHash, gr.DefaultRetro)
 

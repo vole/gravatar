@@ -78,6 +78,8 @@ type GravatarProfile struct {
   }
 }
 
+type rating string
+
 const gravatarHost = "gravatar.com"
 
 // List of (optional) values for a "default action" option for GetAvatar.
@@ -109,6 +111,27 @@ const (
   DefaultWavatar = "wavatar"
 )
 
+// List of (optional) values to specify allowed rating (up to and including
+// that).
+// If the requested email doesn't have any image of allowed level, a default
+// image will be used.
+const (
+  // RatingG is suitable for display on all websites with any audience type.
+  RatingG = "g"
+
+  // RatingPG may contain rude gestures, provocatively dressed individuals, the
+  // lesser swear words, or mild violence.
+  RatingPG = "pg"
+
+  // RatingR may contain such things as harsh profanity, intense violence,
+  // nudity, or hard drug use.
+  RatingR = "r"
+
+  // RatingX may contain hardcore sexual imagery or extremely disturbing
+  // violence.
+  RatingX = "x"
+)
+
 var client = new(http.Client)
 
 // EmailHash converts an email to lowercase and returns its MD5 hash as hex
@@ -121,7 +144,9 @@ func EmailHash(email string) string {
 
 // GetAvatar does a HTTP(S) request and returns an avatar image.
 //
-// Optional arguments include Default* (default actions) and image size.
+// Optional arguments include Default* (default actions), image size and
+// Rating* (rating level, default is RatingG).
+//
 // Instead of Default* predefined constants you may also use a direct URL to an
 // image.
 func GetAvatar(scheme, emailHash string, opts ...interface{}) (data []byte, err error) {
@@ -132,7 +157,11 @@ func GetAvatar(scheme, emailHash string, opts ...interface{}) (data []byte, err 
 
 // GetAvatarURL returns an URL to avatar image.
 //
-// Optional arguments include Default* (default actions) and image size.
+// Optional arguments include Default* (default actions), image size and
+// Rating* (rating level, default is RatingG).
+//
+// Instead of Default* predefined constants you may also use a direct URL to an
+// image.
 func GetAvatarURL(scheme, emailHash string, opts ...interface{}) *url.URL {
   url := &url.URL{
     Scheme: scheme,
@@ -143,11 +172,14 @@ func GetAvatarURL(scheme, emailHash string, opts ...interface{}) *url.URL {
 
   for _, opt := range opts {
     switch o := opt.(type) {
-    case string:
-      values.Add("d", o)
-
     case int:
       values.Add("s", strconv.Itoa(o))
+
+    case rating:
+      values.Add("r", string(o))
+
+    case string:
+      values.Add("d", o)
     }
   }
 

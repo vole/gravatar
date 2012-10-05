@@ -31,6 +31,10 @@ func TestGetAvatar(t *testing.T) {
     if a, err := GetAvatar(scheme, "0.png", DefaultIdentIcon, 256); err != nil {
       t.Error(a, err)
     }
+
+    if a, err := GetAvatar(scheme, "0.png", RatingX, DefaultIdentIcon, 256); err != nil {
+      t.Error(a, err)
+    }
   }
 }
 
