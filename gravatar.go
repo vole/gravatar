@@ -104,6 +104,9 @@ const (
   // DefaultWavatar defaults to a generated faces with differing features and
   // backgrounds.
   DefaultWavatar = "wavatar"
+
+  // DefaultBlank defaults to a transparent PNG image.
+  DefaultBlank = "blank"
 )
 
 var client = new(http.Client)
