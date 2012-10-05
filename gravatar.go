@@ -84,6 +84,9 @@ const gravatarHost = "gravatar.com"
 // Each option defines what GetAvatar has to do in case of non-existing
 // user.
 const (
+  // DefaultBlank defaults to a transparent PNG image.
+  DefaultBlank = "blank"
+
   // DefaultError defaults to an error.
   DefaultError = "404"
 
@@ -104,9 +107,6 @@ const (
   // DefaultWavatar defaults to a generated faces with differing features and
   // backgrounds.
   DefaultWavatar = "wavatar"
-
-  // DefaultBlank defaults to a transparent PNG image.
-  DefaultBlank = "blank"
 )
 
 var client = new(http.Client)
@@ -122,6 +122,8 @@ func EmailHash(email string) string {
 // GetAvatar does a HTTP(S) request and returns an avatar image.
 //
 // Optional arguments include Default* (default actions) and image size.
+// Instead of Default* predefined constants you may also use a direct URL to an
+// image.
 func GetAvatar(scheme, emailHash string, opts ...interface{}) (data []byte, err error) {
   url := GetAvatarURL(scheme, emailHash, opts...)
   err = run(url, get_avatar(&data))
