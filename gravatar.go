@@ -188,8 +188,7 @@ func GetAvatarURL(scheme, emailHash string, opts ...interface{}) *url.URL {
   return url
 }
 
-// GetProfile does a HTTP(S) request (based on `scheme` argument) and returns
-// gravatar profile.
+// GetProfile does a HTTP(S) request and returns gravatar profile.
 func GetProfile(scheme, emailHash string) (g GravatarProfile, err error) {
   url := &url.URL{
     Scheme: scheme,
