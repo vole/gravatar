@@ -117,19 +117,19 @@ const (
 // image will be used.
 const (
   // RatingG is suitable for display on all websites with any audience type.
-  RatingG = "g"
+  RatingG = rating("g")
 
   // RatingPG may contain rude gestures, provocatively dressed individuals, the
   // lesser swear words, or mild violence.
-  RatingPG = "pg"
+  RatingPG = rating("pg")
 
   // RatingR may contain such things as harsh profanity, intense violence,
   // nudity, or hard drug use.
-  RatingR = "r"
+  RatingR = rating("r")
 
   // RatingX may contain hardcore sexual imagery or extremely disturbing
   // violence.
-  RatingX = "x"
+  RatingX = rating("x")
 )
 
 var client = new(http.Client)
