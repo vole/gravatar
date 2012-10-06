@@ -2,8 +2,7 @@
 
 gravatar is a library to ease access to
 [Gravatar API](http://gravatar.com/site/implement/).
-It implements basic functionality needed to get avatars and decode JSON
-profiles.
+It implements a functionality to get avatars and decode JSON profiles.
 
 ## Build status
 
