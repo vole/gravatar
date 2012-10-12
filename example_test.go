@@ -52,6 +52,20 @@ func ExampleGetProfile() {
   }
 }
 
+func ExampleSetAvatarURLOptions() {
+  // get URL to avatar image of default size
+  emailHash := gr.EmailHash("ftrvxmtrx@gmail.com")
+  url := gr.GetAvatarURL("https", emailHash)
+  fmt.Printf("default URL: %s", url.String())
+  // set size to 256x256
+  // fall back to "monster" generated avatar
+  gr.SetAvatarURLOptions(url, gr.DefaultMonster, 256)
+  fmt.Printf("modified URL: %s", url.String())
+  // reset back to the default one
+  gr.SetAvatarURLOptions(url)
+  fmt.Printf("URL after reset: %s", url.String())
+}
+
 // Local Variables:
 // indent-tabs-mode: nil
 // tab-width: 2

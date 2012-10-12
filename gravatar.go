@@ -168,24 +168,8 @@ func GetAvatarURL(scheme, emailHash string, opts ...interface{}) *url.URL {
     Host:   gravatarHost,
     Path:   "/avatar/" + emailHash,
   }
-  values := url.Query()
 
-  for _, opt := range opts {
-    switch o := opt.(type) {
-    case int:
-      values.Add("s", strconv.Itoa(o))
-
-    case rating:
-      values.Add("r", string(o))
-
-    case string:
-      values.Add("d", o)
-    }
-  }
-
-  url.RawQuery = values.Encode()
-
-  return url
+  return SetAvatarURLOptions(url, opts...)
 }
 
 // GetProfile does a HTTP(S) request and returns gravatar profile.
@@ -198,6 +182,36 @@ func GetProfile(scheme, emailHash string) (g GravatarProfile, err error) {
 
   err = run(url, unmarshal_json(&g))
   return
+}
+
+// SetAvatarURLOptions sets options for an URL to avatar image.
+//
+// Options include Default* (default actions), image size and Rating* (rating
+// level, default is RatingG).
+//
+// Instead of Default* predefined constants you may also use a direct URL to an
+// image.
+//
+// Calling SetAvatarURLOptions(url), e.g. without any options, resets the
+// options.
+func SetAvatarURLOptions(u *url.URL, opts ...interface{}) *url.URL {
+  values := make(url.Values)
+
+  for _, opt := range opts {
+    switch o := opt.(type) {
+    case int:
+      values.Set("s", strconv.Itoa(o))
+
+    case rating:
+      values.Set("r", string(o))
+
+    case string:
+      values.Set("d", o)
+    }
+  }
+
+  u.RawQuery = values.Encode()
+  return u
 }
 
 func get_avatar(dst *[]byte) func([]byte) error {

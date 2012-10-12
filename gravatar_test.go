@@ -56,6 +56,32 @@ func TestGetProfile(t *testing.T) {
   }
 }
 
+func TestSetProfile(t *testing.T) {
+  if url := GetAvatarURL("http", "d96ba36eb0d406aea53f3868cd06fca8"); url == nil {
+    t.Error(url)
+  } else {
+    values := SetAvatarURLOptions(url, 123, DefaultRetro).Query()
+
+    if values.Get("s") != "123" {
+      t.Error(values.Get("s"))
+    }
+
+    if values.Get("d") != DefaultRetro {
+      t.Error(values.Get("d"))
+    }
+
+    values = SetAvatarURLOptions(url).Query()
+
+    if values.Get("s") != "" {
+      t.Error(values.Get("s"))
+    }
+
+    if values.Get("d") != "" {
+      t.Error(values.Get("d"))
+    }
+  }
+}
+
 // Local Variables:
 // indent-tabs-mode: nil
 // tab-width: 2
