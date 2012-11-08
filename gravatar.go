@@ -66,6 +66,7 @@ type GravatarProfile struct {
 		Color    string
 		Position string
 		Repeat   string
+		Url      string
 	}
 
 	ProfileUrl string
